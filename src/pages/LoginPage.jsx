@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Box, Button, Card, CardContent, Chip, Grid, Stack, TextField, Typography } from '@mui/material';
-import { LoginRounded, MedicationRounded } from '@mui/icons-material';
+import { Box, Button, Card, CardContent, Chip, Grid, IconButton, InputAdornment, Stack, TextField, Typography } from '@mui/material';
+import { LoginRounded, MedicationRounded, Visibility, VisibilityOff } from '@mui/icons-material';
 import { useNavigate, Navigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useSnackbar } from '../context/SnackbarContext';
@@ -11,6 +11,7 @@ export function LoginPage() {
   const navigate = useNavigate();
   const [email, setEmail] = useState('admin@pharmacy.com');
   const [password, setPassword] = useState('Password123!');
+  const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
 
   if (isAuthenticated) {
@@ -31,10 +32,10 @@ export function LoginPage() {
   };
 
   return (
-    <Grid container sx={{ minHeight: '100vh' }}>
-      <Grid item xs={12} md={6} sx={{ display: 'grid', placeItems: 'center', p: 3 }}>
-        <Card sx={{ width: '100%', maxWidth: 520, p: 1.5 }}>
-          <CardContent>
+    <Grid container rowSpacing={0} columnSpacing={0.5} sx={{ minHeight: '100vh' }}>
+      <Grid item xs={12} md={6} sx={{ display: 'grid', placeItems: 'center', p: { xs: 3, md: '48px 24px 48px 48px' } }}>
+        <Card sx={{ width: '100%', maxWidth: 520, p: 2 }}>
+          <CardContent sx={{ '&:last-child': { pb: 0 } }}>
             <Stack spacing={3}>
               <Stack direction="row" alignItems="center" spacing={1.5}>
                 <Box sx={{ width: 54, height: 54, borderRadius: 3, bgcolor: 'primary.main', color: '#fff', display: 'grid', placeItems: 'center' }}>
@@ -51,18 +52,37 @@ export function LoginPage() {
               </Box>
               <Typography variant="h4" sx={{ fontWeight: 900 }}>Sign in</Typography>
               <TextField label="Email" value={email} onChange={(event) => setEmail(event.target.value)} fullWidth />
-              <TextField label="Password" type="password" value={password} onChange={(event) => setPassword(event.target.value)} fullWidth />
+              <TextField
+                label="Password"
+                type={showPassword ? 'text' : 'password'}
+                value={password}
+                onChange={(event) => setPassword(event.target.value)}
+                fullWidth
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label={showPassword ? 'hide password' : 'show password'}
+                        onClick={() => setShowPassword((current) => !current)}
+                        edge="end"
+                      >
+                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
+              />
               <Button variant="contained" size="large" startIcon={<LoginRounded />} onClick={handleLogin} disabled={loading}>
                 {loading ? 'Signing in...' : 'Login'}
               </Button>
-              <Button variant="text" onClick={() => navigate('/forgot-password')} sx={{ alignSelf: 'flex-start' }}>
+              <Button variant="text" onClick={() => navigate('/forgot-password')} sx={{ alignSelf: 'flex-end', fontWeight: 500 }}>
                 Forgot Password?
               </Button>
             </Stack>
           </CardContent>
         </Card>
       </Grid>
-      <Grid item xs={12} md={6} sx={{ display: { xs: 'none', md: 'block' }, p: 3 }}>
+      <Grid item xs={12} md={6} sx={{ display: { xs: 'none', md: 'block' }, p: { md: '48px 48px 48px 24px' } }}>
         <Box
           sx={{
             height: '100%',
@@ -71,15 +91,15 @@ export function LoginPage() {
             color: '#fff',
             p: 4,
             display: 'grid',
-            alignItems: 'end',
+            alignItems: 'center',
           }}
         >
           <Box>
             <Typography variant="overline" sx={{ letterSpacing: '0.3em' }}>Pharmacy Operations</Typography>
-            <Typography variant="h3" sx={{ fontWeight: 900, maxWidth: 500, mt: 2 }}>
+            <Typography variant="h2" sx={{ fontWeight: 800, maxWidth: 500, mt: 2 }}>
               A modern control center for billing, inventory and reporting.
             </Typography>
-            <Typography sx={{ mt: 2, maxWidth: 520, opacity: 0.92 }}>
+            <Typography sx={{ mt: 2, maxWidth: 520, opacity: 0.92, fontWeight: 400 }}>
               Secure, responsive and beautifully branded for everyday pharmacy management.
             </Typography>
           </Box>

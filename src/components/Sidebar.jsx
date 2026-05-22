@@ -56,7 +56,7 @@ export function Sidebar({ mobileOpen, onMobileClose, collapsed, onCollapseToggle
               <ListItemIcon sx={{ minWidth: collapsed ? 'auto' : 40, color: active ? 'primary.main' : 'text.secondary' }}>
                 <Icon />
               </ListItemIcon>
-              {!collapsed ? <ListItemText primary={item.label} primaryTypographyProps={{ fontWeight: 700 }} /> : null}
+              {!collapsed ? <ListItemText primary={item.label} primaryTypographyProps={{ fontWeight: 500 }} /> : null}
             </ListItemButton>
           );
         })}
