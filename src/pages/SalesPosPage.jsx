@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from 'react';
 import { Box, Button, Chip, Divider, Grid, IconButton, MenuItem, Stack, TextField, Typography } from '@mui/material';
-import { AddRounded, DeleteOutlineRounded, RemoveRounded, PrintRounded, ReceiptLongRounded } from '@mui/icons-material';
+import { AddRounded, DeleteOutlineRounded, RemoveRounded, PrintRounded, ReceiptLongRounded, Height } from '@mui/icons-material';
 import { salesMedicines } from '../data/appData';
 import { GlassCard } from '../components/GlassCard';
 import { PageHeader } from '../components/PageHeader';
@@ -48,15 +48,25 @@ export function SalesPosPage() {
           <GlassCard>
             <Stack spacing={2.5}>
               <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} justifyContent="space-between">
-                <TextField fullWidth label="Search medicines or barcode" value={search} onChange={(event) => setSearch(event.target.value)} />
-                <Chip label="Barcode Ready" color="secondary" sx={{ alignSelf: 'center' }} />
+                <TextField
+                  fullWidth
+                  label="Search medicines"
+                  value={search}
+                  onChange={(event) => setSearch(event.target.value)}
+                  sx={{
+                    '& .MuiOutlinedInput-root': {
+                      borderRadius: '10px',
+                    },
+                  }}
+                />
+                {/* <Chip label="Barcode Ready" color="secondary" sx={{ alignSelf: 'center' }} /> */}
               </Stack>
-              <Grid container spacing={2}>
+              <Grid container spacing={2} alignItems="stretch">
                 {catalog.map((medicine) => (
-                  <Grid item xs={12} sm={6} xl={4} key={medicine.id}>
-                    <GlassCard sx={{ height: '100%' }}>
-                      <Stack spacing={1.5}>
-                        <Box component="img" src={salesMedicines.find((item) => item.id === medicine.id)?.image || ''} alt={medicine.name} sx={{ width: '100%', height: 140, borderRadius: 3, objectFit: 'cover' }} />
+                  <Grid item xs={12} sm={6} xl={4} key={medicine.id} sx={{ display: 'flex' }}>
+                    <GlassCard sx={{ height: '100%', width: '100%' }}>
+                      <Stack spacing={1.25} sx={{ height: '335px' }}>
+                        <Box component="img" src={medicine.image || ''} alt={medicine.name} sx={{ width: '100%', height: 200, borderRadius: 3, objectFit: 'cover', display: 'block' }} />
                         <Typography variant="subtitle1" sx={{ fontWeight: 800 }}>
                           {medicine.name}
                         </Typography>

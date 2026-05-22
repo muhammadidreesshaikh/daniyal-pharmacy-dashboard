@@ -342,6 +342,7 @@ export const salesMedicines = medicinesRows.map((row) => ({
   price: row.sellingPrice,
   stock: row.stock,
   status: row.status,
+  image: row.image,
 }));
 
 export const reportRows = [
