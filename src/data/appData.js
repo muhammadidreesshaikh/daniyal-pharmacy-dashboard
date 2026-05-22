@@ -118,9 +118,8 @@ export const monthlyRevenueLabels = {
   monthly: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
 };
 
-const createMedicine = (id, name, category, stock, batch, expiry, purchasePrice, sellingPrice, supplier, status, image) => ({
+const createMedicine = (id, name, category, stock, batch, expiry, purchasePrice, sellingPrice, supplier, status) => ({
   id,
-  image,
   medicineName: name,
   category,
   stock,
@@ -134,16 +133,15 @@ const createMedicine = (id, name, category, stock, batch, expiry, purchasePrice,
 });
 
 export const medicinesRows = [
-  createMedicine(1, 'Panadol Extra', 'Pain Relief', 240, 'BX-8831', '2027-05-12', 14, 22, 'MediCare Pharma', 'In Stock', 'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?auto=format&fit=crop&w=240&q=80'),
-  createMedicine(2, 'Augmentin 625mg', 'Antibiotics', 24, 'BX-5521', '2026-10-02', 115, 165, 'Healthline Distributors', 'Low Stock', 'https://images.unsplash.com/photo-1576602976047-174e57a47881?auto=format&fit=crop&w=240&q=80'),
-  createMedicine(3, 'Ventolin Inhaler', 'Respiratory', 88, 'BX-4422', '2027-01-18', 210, 295, 'PharmaLink', 'In Stock', 'https://images.unsplash.com/photo-1587854692152-cbe660dbde88?auto=format&fit=crop&w=240&q=80'),
-  createMedicine(4, 'Zincovit Syrup', 'Supplements', 0, 'BX-1119', '2026-02-20', 92, 129, 'MediCare Pharma', 'Out of Stock', 'https://images.unsplash.com/photo-1596572006548-9f1dc5b1e52c?auto=format&fit=crop&w=240&q=80'),
-  createMedicine(5, 'Amoxil 500mg', 'Antibiotics', 18, 'BX-0077', '2025-11-14', 72, 105, 'Wellness Group', 'Expired', 'https://images.unsplash.com/photo-1550572017-edd951b55104?auto=format&fit=crop&w=240&q=80'),
+  createMedicine(1, 'Panadol Extra', 'Pain Relief', 240, 'BX-8831', '2027-05-12', 14, 22, 'MediCare Pharma', 'In Stock'),
+  createMedicine(2, 'Augmentin 625mg', 'Antibiotics', 24, 'BX-5521', '2026-10-02', 115, 165, 'Healthline Distributors', 'Low Stock'),
+  createMedicine(3, 'Ventolin Inhaler', 'Respiratory', 88, 'BX-4422', '2027-01-18', 210, 295, 'PharmaLink', 'In Stock'),
+  createMedicine(4, 'Zincovit Syrup', 'Supplements', 0, 'BX-1119', '2026-02-20', 92, 129, 'MediCare Pharma', 'Out of Stock'),
+  createMedicine(5, 'Amoxil 500mg', 'Antibiotics', 18, 'BX-0077', '2025-11-14', 72, 105, 'Wellness Group', 'Expired'),
 ];
 
 export const medicineFields = [
   { name: 'medicineName', label: 'Medicine Name' },
-  { name: 'image', label: 'Medicine Image Upload', type: 'file' },
   { name: 'category', label: 'Medicine Category', type: 'select', options: ['Pain Relief', 'Antibiotics', 'Supplements', 'Respiratory', 'Diabetes'] },
   { name: 'stock', label: 'Stock Quantity', type: 'number' },
   { name: 'batch', label: 'Batch Number' },
@@ -155,16 +153,6 @@ export const medicineFields = [
 ];
 
 export const medicineColumns = [
-  {
-    field: 'image',
-    headerName: 'Image',
-    width: 90,
-    renderCell: ({ value }) => React.createElement('img', {
-      alt: 'medicine',
-      src: value,
-      style: { width: 42, height: 42, objectFit: 'cover', borderRadius: 14 },
-    }),
-  },
   { field: 'medicineName', headerName: 'Medicine Name', flex: 1, minWidth: 180 },
   { field: 'category', headerName: 'Category', width: 150 },
   { field: 'stock', headerName: 'Stock', width: 110 },
@@ -342,7 +330,6 @@ export const salesMedicines = medicinesRows.map((row) => ({
   price: row.sellingPrice,
   stock: row.stock,
   status: row.status,
-  image: row.image,
 }));
 
 export const reportRows = [

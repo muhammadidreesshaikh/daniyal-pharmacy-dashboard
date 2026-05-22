@@ -71,9 +71,8 @@ export function SalesPosPage() {
                 <Grid container spacing={2} alignItems="stretch" justifyContent="center" sx={{ alignContent: 'flex-start' }}>
                   {catalog.map((medicine) => (
                     <Grid item xs={12} sm={6} xl={4} key={medicine.id} sx={{ display: 'flex' }}>
-                      <GlassCard sx={{ height: '100%', width: '100%' }} disableLastChildPadding>
-                        <Stack spacing={1.25} sx={{ height: '310px' }}>
-                          <Box component="img" src={medicine.image || ''} alt={medicine.name} sx={{ width: '100%', height: 200, borderRadius: 3, objectFit: 'cover', display: 'block' }} />
+                      <GlassCard sx={{ height: '145px', width: '100%' }} disableLastChildPadding>
+                        <Stack spacing={1.25}>
                           <Typography variant="subtitle1" sx={{ fontWeight: 800 }}>
                             {medicine.name}
                           </Typography>
