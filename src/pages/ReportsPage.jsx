@@ -20,7 +20,7 @@ export function ReportsPage() {
       <Grid container spacing={3} sx={{ mb: 3 }}>
         {reportRows.map((report) => (
           <Grid item xs={12} sm={6} md={4} key={report.id}>
-            <GlassCard>
+            <GlassCard disableLastChildPadding>
               <Stack spacing={1}>
                 <Typography color="text.secondary">{report.title}</Typography>
                 <Typography variant="h4" sx={{ fontWeight: 900 }}>{report.value}</Typography>

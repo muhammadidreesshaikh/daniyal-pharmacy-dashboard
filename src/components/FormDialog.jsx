@@ -49,8 +49,8 @@ export function FormDialog({ open, title, fields, initialValues, onClose, onSubm
   return (
     <Dialog open={open} onClose={onClose} maxWidth="md" fullWidth>
       <DialogTitle sx={{ fontWeight: 800 }}>{title}</DialogTitle>
-      <DialogContent>
-        <Stack spacing={2.5} sx={{ pt: 1 }}>
+      <DialogContent sx={{ display: 'flex', justifyContent: 'center' }}>
+        <Stack spacing={2.5} sx={{ pt: 1, width: '100%', maxWidth: 760 }}>
           {helperPreview ? (
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
               <Box component="img" alt="preview" src={helperPreview} sx={{ width: 88, height: 88, borderRadius: 4, objectFit: 'cover' }} />
@@ -59,7 +59,7 @@ export function FormDialog({ open, title, fields, initialValues, onClose, onSubm
               </Typography>
             </Box>
           ) : null}
-          <Grid container spacing={2}>
+          <Grid container spacing={2} justifyContent="center" sx={{ width: '100%', mx: 'auto', maxWidth: 700 }}>
             {fields.map((field) => (
               <Grid item xs={12} sm={field.type === 'textarea' ? 12 : 6} key={field.name}>
                 {field.type === 'select' ? (
@@ -105,7 +105,7 @@ export function FormDialog({ open, title, fields, initialValues, onClose, onSubm
           </Grid>
         </Stack>
       </DialogContent>
-      <DialogActions sx={{ p: 3, pt: 0 }}>
+      <DialogActions sx={{ p: 3 }}>
         <Button
           variant="outlined"
           onClick={onClose}

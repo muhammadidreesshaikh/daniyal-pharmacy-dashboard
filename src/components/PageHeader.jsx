@@ -31,6 +31,8 @@ export function PageHeader({ title, subtitle, actionLabel, onAction, breadcrumbs
             size="large"
             onClick={onAction}
             sx={{
+              alignSelf: { xs: 'flex-end', md: 'auto' },
+              width: { xs: 'fit-content', md: 'auto' },
               bgcolor: '#10b981',
               '&:hover': {
                 bgcolor: '#059669',
