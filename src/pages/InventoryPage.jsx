@@ -1,10 +1,11 @@
 import React, { useMemo } from 'react';
 import { inventoryConfig } from '../data/appData';
 import { CrudEntityPage } from '../components/CrudEntityPage';
-import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { ThemeProvider, createTheme, useTheme } from '@mui/material/styles';
 
 export function InventoryPage() {
-  const dashboardTheme = useMemo(() => createTheme({
+  const theme = useTheme();
+  const dashboardTheme = useMemo(() => createTheme(theme, {
     components: {
       MuiOutlinedInput: {
         styleOverrides: {
@@ -16,7 +17,7 @@ export function InventoryPage() {
         styleOverrides: { root: { borderRadius: 10 } },
       },
     },
-  }), []);
+  }), [theme]);
 
   return (
     <ThemeProvider theme={dashboardTheme}>

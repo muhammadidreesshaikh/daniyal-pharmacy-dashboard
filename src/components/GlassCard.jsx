@@ -1,7 +1,10 @@
 import React from 'react';
 import { Card, CardContent } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 
 export function GlassCard({ children, sx, contentSx, disableLastChildPadding = false, ...props }) {
+  const theme = useTheme();
+
   return (
     <Card
       {...props}
@@ -9,6 +12,7 @@ export function GlassCard({ children, sx, contentSx, disableLastChildPadding = f
         position: 'relative',
         overflow: 'hidden',
         borderRadius: 5,
+        color: theme.palette.text.primary,
         backgroundImage: 'linear-gradient(145deg, rgba(255,255,255,0.88), rgba(255,255,255,0.58))',
         boxShadow: '0 12px 35px rgba(16,24,40,0.10)',
         transition: 'transform 220ms ease, box-shadow 220ms ease',

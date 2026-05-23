@@ -37,8 +37,8 @@ export const createAppTheme = (mode) =>
         paper: mode === 'dark' ? 'rgba(7, 18, 29, 0.78)' : 'rgba(255,255,255,0.82)',
       },
       text: {
-        primary: mode === 'dark' ? '#e5f3ef' : '#102033',
-        secondary: mode === 'dark' ? '#9db1c1' : '#527087',
+        primary: mode === 'dark' ? '#f8fafc' : '#102033',
+        secondary: mode === 'dark' ? '#cbd5e1' : '#527087',
       },
     },
     shape: {
@@ -81,6 +81,47 @@ export const createAppTheme = (mode) =>
             WebkitBackdropFilter: 'blur(18px)',
             border: `1px solid ${alpha(theme.palette.common.white, theme.palette.mode === 'dark' ? 0.08 : 0.55)}`,
             boxShadow: theme.shadows[3],
+            color: theme.palette.mode === 'dark' ? theme.palette.text.primary : 'inherit',
+          }),
+        },
+      },
+      MuiCard: {
+        styleOverrides: {
+          root: ({ theme }) => ({
+            borderRadius: 24,
+            backgroundImage:
+              theme.palette.mode === 'dark'
+                ? 'linear-gradient(180deg, rgba(15,23,42,0.92), rgba(8,18,29,0.88))'
+                : 'linear-gradient(180deg, rgba(255,255,255,0.88), rgba(244,251,255,0.84))',
+            color: theme.palette.mode === 'dark' ? theme.palette.text.primary : 'inherit',
+          }),
+        },
+      },
+      MuiOutlinedInput: {
+        styleOverrides: {
+          root: ({ theme }) => ({
+            color: theme.palette.mode === 'dark' ? theme.palette.text.primary : 'inherit',
+          }),
+        },
+      },
+      MuiInputBase: {
+        styleOverrides: {
+          root: ({ theme }) => ({
+            color: theme.palette.mode === 'dark' ? theme.palette.text.primary : 'inherit',
+          }),
+        },
+      },
+      MuiInputLabel: {
+        styleOverrides: {
+          root: ({ theme }) => ({
+            color: theme.palette.mode === 'dark' ? theme.palette.text.secondary : undefined,
+          }),
+        },
+      },
+      MuiMenuItem: {
+        styleOverrides: {
+          root: ({ theme }) => ({
+            color: theme.palette.mode === 'dark' ? theme.palette.text.primary : 'inherit',
           }),
         },
       },
@@ -111,22 +152,12 @@ export const createAppTheme = (mode) =>
           }),
         },
       },
-      MuiCard: {
-        styleOverrides: {
-          root: ({ theme }) => ({
-            borderRadius: 24,
-            backgroundImage:
-              theme.palette.mode === 'dark'
-                ? 'linear-gradient(180deg, rgba(15,23,42,0.92), rgba(8,18,29,0.88))'
-                : 'linear-gradient(180deg, rgba(255,255,255,0.88), rgba(244,251,255,0.84))',
-          }),
-        },
-      },
       MuiDataGrid: {
         styleOverrides: {
           root: ({ theme }) => ({
             border: 'none',
             background: 'transparent',
+            color: theme.palette.mode === 'dark' ? theme.palette.text.primary : 'inherit',
             '& .MuiDataGrid-columnHeaders': {
               borderRadius: 16,
               background: alpha(theme.palette.primary.main, theme.palette.mode === 'dark' ? 0.12 : 0.08),

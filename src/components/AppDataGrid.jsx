@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from 'react';
 import { Box, Button, IconButton, MenuItem, Stack, TextField, Typography } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
+import { useTheme } from '@mui/material/styles';
 import { DeleteOutlineRounded, EditRounded, PictureAsPdfRounded, SearchRounded } from '@mui/icons-material';
 import { GlassCard } from './GlassCard';
 import { EmptyState } from './EmptyState';
@@ -44,6 +45,7 @@ const defaultColumns = (onEdit, onDelete) => [
 ];
 
 export function AppDataGrid({ title, rows, columns, searchFields, onEdit, onDelete, onAdd, addLabel = 'Add', extraActions = [], filterField, filterOptions = [], height = 520, compact = false, cardSx, tableSx, searchInputSx }) {
+  const theme = useTheme();
   const [search, setSearch] = useState('');
   const [filter, setFilter] = useState('All');
 
@@ -121,16 +123,28 @@ export function AppDataGrid({ title, rows, columns, searchFields, onEdit, onDele
               border: '1px solid',
               borderColor: 'divider',
               borderRadius: 3,
+              color: theme.palette.text.primary,
+              '& .MuiDataGrid-columnHeaders': {
+                color: theme.palette.text.primary,
+                borderBottom: 'none',
+              },
+              '& .MuiDataGrid-columnHeaderTitle': {
+                color: theme.palette.text.primary,
+              },
+              '& .MuiDataGrid-cell': {
+                color: theme.palette.text.primary,
+              },
+              '& .MuiDataGrid-footerContainer': {
+                color: theme.palette.text.primary,
+                borderTop: 'none',
+              },
+              '& .MuiTablePagination-root': {
+                color: theme.palette.text.primary,
+              },
               '& .MuiDataGrid-virtualScroller': {
                 borderBottom: 'none',
               },
-              '& .MuiDataGrid-footerContainer': {
-                borderTop: 'none',
-              },
               '& .MuiDataGrid-row': {
-                borderBottom: 'none',
-              },
-              '& .MuiDataGrid-columnHeaders': {
                 borderBottom: 'none',
               },
               ...tableSx,
