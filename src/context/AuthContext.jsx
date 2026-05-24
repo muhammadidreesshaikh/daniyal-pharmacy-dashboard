@@ -10,6 +10,7 @@ const demoAccounts = {
     role: 'Admin',
     title: 'Operations Admin',
     avatar: 'AM',
+    allowedRoles: ['Admin'],
   },
   'superadmin@pharmacy.com': {
     password: 'Password123!',
@@ -17,6 +18,7 @@ const demoAccounts = {
     role: 'Super Admin',
     title: 'Pharmacy Owner',
     avatar: 'DA',
+    allowedRoles: ['Super Admin', 'Admin'],
   },
 };
 
@@ -38,16 +40,21 @@ export function AuthProvider({ children }) {
     () => ({
       user,
       isAuthenticated: Boolean(user),
-      login: async ({ email, password }) => {
+      login: async ({ email, password, role }) => {
         const account = demoAccounts[email.toLowerCase()];
         if (!account || account.password !== password) {
           throw new Error('Invalid email or password.');
         }
 
+        const nextRole = role || account.role;
+        if (!account.allowedRoles.includes(nextRole)) {
+          throw new Error(`This account cannot sign in as ${nextRole}.`);
+        }
+
         const nextUser = {
           email: email.toLowerCase(),
           name: account.name,
-          role: account.role,
+          role: nextRole,
           title: account.title,
           avatar: account.avatar,
           online: true,

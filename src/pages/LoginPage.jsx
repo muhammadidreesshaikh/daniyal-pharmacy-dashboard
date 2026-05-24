@@ -5,14 +5,47 @@ import { useNavigate, Navigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useSnackbar } from '../context/SnackbarContext';
 
+const accountPresets = {
+  admin: {
+    email: 'admin@pharmacy.com',
+    password: 'Password123!',
+    role: 'Admin',
+  },
+  superAdmin: {
+    email: 'superadmin@pharmacy.com',
+    password: 'Password123!',
+    role: 'Super Admin',
+  },
+};
+
 export function LoginPage() {
   const { login, isAuthenticated } = useAuth();
   const { notify } = useSnackbar();
   const navigate = useNavigate();
   const [email, setEmail] = useState('admin@pharmacy.com');
   const [password, setPassword] = useState('Password123!');
+  const [role, setRole] = useState('Admin');
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  const handleAccountSelect = (account) => {
+    setEmail(account.email);
+    setPassword(account.password);
+    setRole(account.role);
+  };
+
+  const handleEmailChange = (value) => {
+    setEmail(value);
+    const normalizedEmail = value.trim().toLowerCase();
+
+    if (normalizedEmail === accountPresets.superAdmin.email) {
+      setPassword(accountPresets.superAdmin.password);
+      setRole(accountPresets.superAdmin.role);
+    } else if (normalizedEmail === accountPresets.admin.email) {
+      setPassword(accountPresets.admin.password);
+      setRole(accountPresets.admin.role);
+    }
+  };
 
   if (isAuthenticated) {
     return <Navigate to="/dashboard" replace />;
@@ -21,7 +54,7 @@ export function LoginPage() {
   const handleLogin = async () => {
     try {
       setLoading(true);
-      await login({ email, password });
+      await login({ email, password, role });
       notify('Welcome back to Daniyal Pharmacy.', 'success');
       navigate('/dashboard');
     } catch (error) {
@@ -61,11 +94,23 @@ export function LoginPage() {
                 </Box>
               </Stack>
               <Stack direction="row" justifyContent={{ xs: 'center', md: 'flex-start' }} spacing={1} flexWrap="wrap">
-                <Chip label="Super Admin" color="secondary" sx={{ mr: 1 }} />
-                <Chip label="Admin" variant="outlined" />
+                <Chip
+                  label="Super Admin"
+                  color={role === 'Super Admin' ? 'secondary' : 'default'}
+                  variant={role === 'Super Admin' ? 'filled' : 'outlined'}
+                  onClick={() => handleAccountSelect(accountPresets.superAdmin)}
+                  clickable
+                />
+                <Chip
+                  label="Admin"
+                  color={role === 'Admin' ? 'secondary' : 'default'}
+                  variant={role === 'Admin' ? 'filled' : 'outlined'}
+                  onClick={() => handleAccountSelect(accountPresets.admin)}
+                  clickable
+                />
               </Stack>
               <Typography variant="h4" sx={{ fontWeight: 900, fontSize: { xs: '2rem', sm: '2.25rem' } }}>Sign in</Typography>
-              <TextField label="Email" value={email} onChange={(event) => setEmail(event.target.value)} fullWidth />
+              <TextField label="Email" value={email} onChange={(event) => handleEmailChange(event.target.value)} fullWidth />
               <TextField
                 label="Password"
                 type={showPassword ? 'text' : 'password'}

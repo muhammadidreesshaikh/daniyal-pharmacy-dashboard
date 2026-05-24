@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Box, Grid, Stack, Typography } from '@mui/material';
 import { PageHeader } from './PageHeader';
 import { MetricCard } from './MetricCard';
@@ -11,13 +11,39 @@ const enrichRows = (rows, config) =>
   rows.map((row) => ({
     ...row,
     status: config.statusAccessor ? config.statusAccessor(row) : row.status,
+    ...(config.title === 'Medicines'
+      ? {
+          sellingPrice: row.sellingPrice ?? row.price ?? 0,
+          price: row.price ?? row.sellingPrice ?? 0,
+        }
+      : {}),
   }));
 
 export function CrudEntityPage({ config }) {
-  const [rows, setRows] = useState(() => enrichRows(config.rows, config));
+  const storageKey = `daniyal-pharmacy-rows-${config.title}`;
+  const [rows, setRows] = useState(() => {
+    try {
+      const storedRows = localStorage.getItem(storageKey);
+      if (storedRows) {
+        return enrichRows(JSON.parse(storedRows), config);
+      }
+    } catch {
+      // Fall back to seed data when storage is unavailable or malformed.
+    }
+
+    return enrichRows(config.rows, config);
+  });
   const [open, setOpen] = useState(false);
   const [editingRow, setEditingRow] = useState(null);
   const { notify } = useSnackbar();
+
+  useEffect(() => {
+    try {
+      localStorage.setItem(storageKey, JSON.stringify(rows));
+    } catch {
+      // Ignore storage write failures.
+    }
+  }, [rows, storageKey]);
 
   const stats = useMemo(() => config.stats || [], [config.stats]);
 
@@ -36,6 +62,12 @@ export function CrudEntityPage({ config }) {
   const handleSubmit = (values) => {
     const payload = {
       ...values,
+      ...(config.title === 'Medicines'
+        ? {
+            sellingPrice: values.sellingPrice ?? values.price ?? 0,
+            price: values.price ?? values.sellingPrice ?? 0,
+          }
+        : {}),
       id: editingRow?.id || Date.now(),
     };
 

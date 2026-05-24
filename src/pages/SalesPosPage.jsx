@@ -46,7 +46,7 @@ export const SalesPosPage = () => {
       <Grid container spacing={3}>
         <Grid item xs={12} lg={8}>
           <AppDataGrid
-            // title="Medicines"
+            title="Sales & POS"
             rows={catalog}
             columns={[
               { field: 'name', headerName: 'Medicine', flex: 1, minWidth: 180 },

@@ -147,7 +147,7 @@ export const medicineFields = [
   { name: 'batch', label: 'Batch Number' },
   { name: 'expiry', label: 'Expiry Date', type: 'date' },
   { name: 'purchasePrice', label: 'Purchase Price', type: 'number' },
-  { name: 'sellingPrice', label: 'Selling Price', type: 'number' },
+  { name: 'sellingPrice', label: 'Price', type: 'number' },
   { name: 'supplier', label: 'Supplier Name' },
   { name: 'description', label: 'Description', type: 'textarea' },
 ];
@@ -158,7 +158,7 @@ export const medicineColumns = [
   { field: 'stock', headerName: 'Stock', width: 110 },
   { field: 'batch', headerName: 'Batch', width: 130 },
   { field: 'expiry', headerName: 'Expiry', width: 120 },
-  { field: 'sellingPrice', headerName: 'Price', width: 100, valueFormatter: ({ value }) => `Rs. ${value}` },
+  { field: 'sellingPrice', headerName: 'Price', width: 100, valueFormatter: ({ value, row }) => `Rs. ${value ?? row?.price ?? 0}` },
   { field: 'status', headerName: 'Status', width: 130 },
 ];
 
