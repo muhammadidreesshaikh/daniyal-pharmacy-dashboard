@@ -50,6 +50,7 @@ export function Topbar({ onMenuClick, collapsed, onToggleCollapse }) {
         backdropFilter: 'blur(18px)',
         background: (theme) => `linear-gradient(90deg, ${theme.palette.background.paper} 0%, ${theme.palette.background.paper} 100%)`,
         borderBottom: (theme) => `1px solid ${theme.palette.divider}`,
+        borderRadius: 0,
       }}
     >
       <Toolbar sx={{ minHeight: { xs: 64, sm: 72, md: 80 }, gap: { xs: 1, md: 2 }, px: { xs: 1.5, sm: 2, md: 3 } }}>

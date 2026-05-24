@@ -139,7 +139,7 @@ export const createAppTheme = (mode) =>
         },
         styleOverrides: {
           root: {
-            borderRadius: 10,
+            borderRadius: 5,
             paddingInline: 18,
             transition: 'transform 180ms ease, box-shadow 180ms ease, background 180ms ease',
           },

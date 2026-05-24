@@ -45,9 +45,12 @@ export function FormDialog({ open, title, fields, initialValues, onClose, onSubm
   };
 
   const helperPreview = useMemo(() => preview || values.image, [preview, values.image]);
+  const paperSx = {
+    bgcolor: (theme) => (theme.palette.mode === 'dark' ? theme.palette.background.paper : '#ffffff'),
+  };
 
   return (
-    <Dialog open={open} onClose={onClose} maxWidth="md" fullWidth>
+    <Dialog open={open} onClose={onClose} maxWidth="md" fullWidth PaperProps={{ sx: paperSx }}>
       <DialogTitle sx={{ fontWeight: 800 }}>{title}</DialogTitle>
       <DialogContent sx={{ display: 'flex', justifyContent: centered ? 'center' : 'flex-start' }}>
         <Stack spacing={2.5} sx={{ pt: 1, width: '100%', maxWidth: 760 }}>
@@ -60,52 +63,52 @@ export function FormDialog({ open, title, fields, initialValues, onClose, onSubm
             </Box>
           ) : null}
           <Grid container spacing={2} justifyContent={centered ? 'center' : 'flex-start'} sx={{ width: '100%', mx: centered ? 'auto' : 0, maxWidth: 700 }}>
-            {fields.map((field, idx) => {
-              const isLast = idx === fields.length - 1;
-              const smSize = isLast ? 12 : field.type === 'textarea' ? 12 : 6;
+            {fields.map((field) => {
+              const smSize = field.type === 'textarea' ? 12 : 6;
 
               return (
                 <Grid item xs={12} sm={smSize} key={field.name}>
-                {field.type === 'select' ? (
-                  <TextField
-                    select
-                    fullWidth
-                    label={field.label}
-                    value={toFormValue(values[field.name])}
-                    onChange={(event) => handleChange(field.name, event.target.value)}
-                  >
-                    {field.options.map((option) => (
-                      <MenuItem key={option} value={option}>
-                        {option}
-                      </MenuItem>
-                    ))}
-                  </TextField>
-                ) : field.type === 'textarea' ? (
-                  <TextField
-                    fullWidth
-                    multiline
-                    minRows={4}
-                    label={field.label}
-                    value={toFormValue(values[field.name])}
-                    onChange={(event) => handleChange(field.name, event.target.value)}
-                  />
-                ) : field.type === 'file' ? (
-                  <Button variant="outlined" component="label" fullWidth sx={{ height: 56 }}>
-                    Upload Image
-                    <input hidden type="file" accept="image/*" onChange={handleFile} />
-                  </Button>
-                ) : (
-                  <TextField
-                    fullWidth
-                    type={field.type || 'text'}
-                    label={field.label}
-                    value={toFormValue(values[field.name])}
-                    onChange={(event) => handleChange(field.name, event.target.value)}
-                    InputLabelProps={field.type === 'date' ? { shrink: true } : undefined}
-                  />
-                )}
-              </Grid>
-            ))}
+                  {field.type === 'select' ? (
+                    <TextField
+                      select
+                      fullWidth
+                      label={field.label}
+                      value={toFormValue(values[field.name])}
+                      onChange={(event) => handleChange(field.name, event.target.value)}
+                    >
+                      {field.options.map((option) => (
+                        <MenuItem key={option} value={option}>
+                          {option}
+                        </MenuItem>
+                      ))}
+                    </TextField>
+                  ) : field.type === 'textarea' ? (
+                    <TextField
+                      fullWidth
+                      multiline
+                      minRows={4}
+                      label={field.label}
+                      value={toFormValue(values[field.name])}
+                      onChange={(event) => handleChange(field.name, event.target.value)}
+                    />
+                  ) : field.type === 'file' ? (
+                    <Button variant="outlined" component="label" fullWidth sx={{ height: 56 }}>
+                      Upload Image
+                      <input hidden type="file" accept="image/*" onChange={handleFile} />
+                    </Button>
+                  ) : (
+                    <TextField
+                      fullWidth
+                      type={field.type || 'text'}
+                      label={field.label}
+                      value={toFormValue(values[field.name])}
+                      onChange={(event) => handleChange(field.name, event.target.value)}
+                      InputLabelProps={field.type === 'date' ? { shrink: true } : undefined}
+                    />
+                  )}
+                </Grid>
+              );
+            })}
           </Grid>
         </Stack>
       </DialogContent>
