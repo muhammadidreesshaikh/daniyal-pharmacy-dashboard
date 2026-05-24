@@ -25,7 +25,7 @@ const toFormValue = (value) => {
   return value;
 };
 
-export function FormDialog({ open, title, fields, initialValues, onClose, onSubmit }) {
+export function FormDialog({ open, title, fields, initialValues, onClose, onSubmit, centered = true }) {
   const [values, setValues] = useState(initialValues || {});
   const [preview, setPreview] = useState(initialValues?.image || '');
 
@@ -49,7 +49,7 @@ export function FormDialog({ open, title, fields, initialValues, onClose, onSubm
   return (
     <Dialog open={open} onClose={onClose} maxWidth="md" fullWidth>
       <DialogTitle sx={{ fontWeight: 800 }}>{title}</DialogTitle>
-      <DialogContent sx={{ display: 'flex', justifyContent: 'center' }}>
+      <DialogContent sx={{ display: 'flex', justifyContent: centered ? 'center' : 'flex-start' }}>
         <Stack spacing={2.5} sx={{ pt: 1, width: '100%', maxWidth: 760 }}>
           {helperPreview ? (
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
@@ -59,9 +59,13 @@ export function FormDialog({ open, title, fields, initialValues, onClose, onSubm
               </Typography>
             </Box>
           ) : null}
-          <Grid container spacing={2} justifyContent="center" sx={{ width: '100%', mx: 'auto', maxWidth: 700 }}>
-            {fields.map((field) => (
-              <Grid item xs={12} sm={field.type === 'textarea' ? 12 : 6} key={field.name}>
+          <Grid container spacing={2} justifyContent={centered ? 'center' : 'flex-start'} sx={{ width: '100%', mx: centered ? 'auto' : 0, maxWidth: 700 }}>
+            {fields.map((field, idx) => {
+              const isLast = idx === fields.length - 1;
+              const smSize = isLast ? 12 : field.type === 'textarea' ? 12 : 6;
+
+              return (
+                <Grid item xs={12} sm={smSize} key={field.name}>
                 {field.type === 'select' ? (
                   <TextField
                     select

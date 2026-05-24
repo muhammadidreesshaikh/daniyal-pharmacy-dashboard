@@ -13,7 +13,10 @@ export function GlassCard({ children, sx, contentSx, disableLastChildPadding = f
         overflow: 'hidden',
         borderRadius: 5,
         color: theme.palette.text.primary,
-        backgroundImage: 'linear-gradient(145deg, rgba(255,255,255,0.88), rgba(255,255,255,0.58))',
+        backgroundImage:
+          theme.palette.mode === 'dark'
+            ? 'linear-gradient(145deg, rgba(2,6,23,0.96), rgba(8,14,22,0.94))'
+            : 'linear-gradient(145deg, rgba(255,255,255,0.88), rgba(255,255,255,0.58))',
         boxShadow: '0 12px 35px rgba(16,24,40,0.10)',
         transition: 'transform 220ms ease, box-shadow 220ms ease',
         '&:hover': { transform: 'translateY(-4px)', boxShadow: '0 20px 40px rgba(16,24,40,0.16)' },
@@ -21,7 +24,10 @@ export function GlassCard({ children, sx, contentSx, disableLastChildPadding = f
           content: '""',
           position: 'absolute',
           inset: 0,
-          background: 'radial-gradient(circle at top right, rgba(16,185,129,0.16), transparent 32%), radial-gradient(circle at bottom left, rgba(6,182,212,0.14), transparent 28%)',
+          background:
+            theme.palette.mode === 'dark'
+              ? 'radial-gradient(circle at top right, rgba(16,185,129,0.06), transparent 28%), radial-gradient(circle at bottom left, rgba(6,182,212,0.04), transparent 22%)'
+              : 'radial-gradient(circle at top right, rgba(16,185,129,0.16), transparent 32%), radial-gradient(circle at bottom left, rgba(6,182,212,0.14), transparent 28%)',
           pointerEvents: 'none',
         },
         ...sx,

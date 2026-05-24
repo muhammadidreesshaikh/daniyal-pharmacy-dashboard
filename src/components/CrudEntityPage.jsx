@@ -99,6 +99,7 @@ export function CrudEntityPage({ config }) {
         initialValues={editingRow || {}}
         onClose={() => setOpen(false)}
         onSubmit={handleSubmit}
+        centered={config.formCentered ?? true}
       />
     </Box>
   );

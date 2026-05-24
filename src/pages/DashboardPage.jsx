@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Box, Grid, Stack, Tab, Tabs, Typography } from '@mui/material';
-import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { ThemeProvider, createTheme, useTheme } from '@mui/material/styles';
 import {
   Bar,
   BarChart,
@@ -56,8 +56,9 @@ export function DashboardPage() {
   const chartData = useMemo(() => dashboardChartData[range], [range]);
   const revenueLineColor = range === 'today' ? '#06b6d4' : range === 'weekly' ? '#10b981' : '#8b5cf6';
 
+  const parentTheme = useTheme();
   const dashboardTheme = useMemo(() =>
-    createTheme({
+    createTheme(parentTheme, {
       components: {
         MuiOutlinedInput: {
           styleOverrides: {
@@ -78,7 +79,7 @@ export function DashboardPage() {
         },
       },
     }),
-    []
+    [parentTheme]
   );
 
   if (loading) {
@@ -103,7 +104,7 @@ export function DashboardPage() {
       </Grid>
 
       <Grid container spacing={3}>
-        <Grid item xs={12} lg={7}>
+        <Grid item xs={12} lg={12}>
           <GlassCard >
             <Stack spacing={2.5}>
               <Stack direction={{ xs: 'column', sm: 'row' }} justifyContent="space-between" alignItems={{ xs: 'flex-start', sm: 'center' }} spacing={2}>
@@ -160,7 +161,7 @@ export function DashboardPage() {
       </Grid>
 
       <Grid container spacing={3} sx={{ mt: 0.5 }}>
-        <Grid item xs={12} lg={6}>
+        <Grid item xs={12} lg={12}>
           <AppDataGrid
             title="Recent Sales"
             rows={recentSalesRows}
@@ -177,7 +178,7 @@ export function DashboardPage() {
             cardSx={{ padding: "20px",}}
           />
         </Grid>
-        <Grid item xs={12} lg={6}>
+        <Grid item xs={12} lg={12}>
           <AppDataGrid
             title="Top Selling Medicines"
             rows={topSellingRows}

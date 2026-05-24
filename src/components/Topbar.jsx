@@ -107,7 +107,7 @@ export function Topbar({ onMenuClick, collapsed, onToggleCollapse }) {
         </Tooltip>
         <Button
           onClick={(event) => setAnchorEl(event.currentTarget)}
-          sx={{ textTransform: 'none', borderRadius: 999, px: { xs: 0.75, sm: 1.5 }, minWidth: 0 }}
+          sx={{ textTransform: 'none', borderRadius: 10, px: { xs: 0.75, sm: 1.5 }, minWidth: 0 }}
           startIcon={
             <Badge overlap="circular" variant="dot" color="success" anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}>
               <Avatar sx={{ width: 36, height: 36, bgcolor: 'secondary.main' }}>{user?.avatar || 'DP'}</Avatar>

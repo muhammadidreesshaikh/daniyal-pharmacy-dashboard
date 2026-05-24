@@ -124,6 +124,16 @@ export function AppDataGrid({ title, rows, columns, searchFields, onEdit, onDele
               borderColor: 'divider',
               borderRadius: 3,
               color: theme.palette.text.primary,
+              ...(theme.palette.mode === 'dark'
+                ? {
+                    '& .MuiDataGrid-virtualScroller': {
+                      backgroundImage: 'linear-gradient(135deg, rgba(2,6,23,0.96) 0%, rgba(8,14,22,0.94) 100%)',
+                    },
+                    '& .MuiDataGrid-row': {
+                      background: 'transparent',
+                    },
+                  }
+                : {}),
               '& .MuiDataGrid-columnHeaders': {
                 color: theme.palette.text.primary,
                 borderBottom: 'none',

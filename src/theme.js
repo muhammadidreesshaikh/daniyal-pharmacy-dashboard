@@ -82,6 +82,14 @@ export const createAppTheme = (mode) =>
             border: `1px solid ${alpha(theme.palette.common.white, theme.palette.mode === 'dark' ? 0.08 : 0.55)}`,
             boxShadow: theme.shadows[3],
             color: theme.palette.mode === 'dark' ? theme.palette.text.primary : 'inherit',
+            borderRadius: 10,
+          }),
+        },
+      },
+      MuiDialog: {
+        styleOverrides: {
+          paper: ({ theme }) => ({
+            borderRadius: 10,
           }),
         },
       },
@@ -131,7 +139,7 @@ export const createAppTheme = (mode) =>
         },
         styleOverrides: {
           root: {
-            borderRadius: 999,
+            borderRadius: 10,
             paddingInline: 18,
             transition: 'transform 180ms ease, box-shadow 180ms ease, background 180ms ease',
           },
